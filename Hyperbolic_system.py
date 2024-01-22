@@ -846,7 +846,7 @@ for i in range(2):
     projection  = 1
     model = DeepONetModified(branch, trunk, activation, kernel, projection)
     # model = torch.load("Hyperbolic_U_12302").cuda()
-    model = torch.load("U_110").cuda()
+    model = torch.load("U_1000").cuda()
     result = solve_ivp(ode_func, [sys['Tspan'][0], sys['Tspan'][-1]], x0, method='RK45', t_eval=sys['Tspan'])    #, method='RK45', t_eval=sys['Tspan']
 
     t_log = result.t
