@@ -42,7 +42,7 @@ grids.append(spatial)
 grid = np.vstack([xx.ravel() for xx in np.meshgrid(*grids)]).T
 grid1 = np.vstack([xx.ravel() for xx in np.meshgrid(*grids)]).T
 print(grid1.shape)
-grid = np.concatenate([grid, grid, grid], axis=1)
+grid = np.concatenate([grid], axis=1)
 grid = torch.from_numpy(grid).cuda()
 
 y_K= np.loadtxt("y_L2_2000_18.dat", dtype=np.float32)
@@ -129,7 +129,7 @@ class BranchNet(nn.Module):
 
 
 # Define a sequential torch network for batch and trunk. Can use COV2D which we will show later
-dim_x =6
+dim_x = 2
 m = (nx)**2
 
 branch = BranchNet(nx)
@@ -152,7 +152,7 @@ for ep in range(epochs):
     train_loss = 0
     for x, y in trainData:
         x, y = x.cuda(), y.cuda()
-        x = torch.reshape(x, (x.shape[0], dim_x, nx, nx))
+        x = torch.reshape(x, (x.shape[0], 6, nx, nx))
 
         optimizer.zero_grad()
         out = model((x, grid))
